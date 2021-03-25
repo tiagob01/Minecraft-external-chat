@@ -35,7 +35,15 @@ def formatted(message):
                 formatted_section += Style.RESET_ALL
             final_message += formatted_section
     else:
-        final_message = f"{Fore.LIGHTWHITE_EX}{message}{Style.RESET_ALL}"
+        if ">" not in message and "»" not in message:
+            return message
+        try:
+            arrow = message.index(">")
+            if "<" in message:
+                arrow += 1
+        except ValueError:
+            arrow = message.index("»")
+        final_message = f"{Fore.LIGHTCYAN_EX}{message[0:arrow]}{Fore.LIGHTBLACK_EX}{message[arrow]}{Fore.LIGHTWHITE_EX}{message[arrow+1:]}"
     return final_message
 
 
