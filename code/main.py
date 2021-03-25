@@ -30,7 +30,9 @@ def formatted(message):
         for section in split:
             if section == "":
                 continue
-            formatted_section = f"{color_codes[section[0]]}{section[1:]}{Style.RESET_ALL}"
+            formatted_section = f"{color_codes[section[0]]}{section[1:]}"
+            if len(section) != 1:
+                formatted_section += Style.RESET_ALL
             final_message += formatted_section
     else:
         final_message = f"{Fore.LIGHTWHITE_EX}{message}{Style.RESET_ALL}"
