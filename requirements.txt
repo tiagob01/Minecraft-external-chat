@@ -1,0 +1,2 @@
+install colorama
+thats it
