@@ -56,4 +56,3 @@ while True:
     new_messages = chatlog()[len(prev_log):]
     for message in new_messages:
         print(formatted(message))
-
