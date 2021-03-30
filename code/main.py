@@ -62,14 +62,14 @@ def formatted(message):
             final_message = f"{Style.BRIGHT}{message}{Style.RESET_ALL}"
         else:
             try:
-                arrow_i = message.index(">")
-                if "<" in message[0]:
-                    arrow_i += 1
+                arrow_i = message.index(":")
             except ValueError:
                 try:
                     arrow_i = message.index("»")
                 except ValueError:
-                    arrow_i = message.index(":")
+                    arrow_i = message.index(">")
+                    if "<" in message[0]:
+                        arrow_i += 1
             user = message[0:arrow_i]
             arrow = message[arrow_i]
             content = message[arrow_i+1:]
