@@ -74,9 +74,11 @@ def formatted(message):
             arrow = message[arrow_i]
             content = message[arrow_i+1:]
             if user not in user_colors.keys():
-                user_colors[user] = random.choice(user_color_types)
 
-            final_message = f"{user_colors[user]}{user}{Fore.WHITE}{arrow}{Fore.LIGHTWHITE_EX}{content}{Style.RESET_ALL}"
+                user_colors[user] = random.choice(user_color_types)
+            final_message = f"{user_colors[user]}{user}{Fore.WHITE}{arrow}" \
+                            f"{Fore.LIGHTWHITE_EX}{content}{Style.RESET_ALL}"
+
     return final_message
 
 
