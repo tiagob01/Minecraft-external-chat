@@ -1,6 +1,7 @@
 import os
 import random
 from colorama import init, Fore, Style
+import codecs
 
 init()
 user_colors = {}
@@ -49,16 +50,16 @@ def formatted(message):
     if "§" in message:
         final_message = ""
         split = message.split("§")
+        final_message += split[0]
+        del split[0]
         for section in split:
-            if section.isspace() or section == "":
-                continue
             formatted_section = f"{color_codes[section[0]]}{section[1:]}"
             if len(section) != 1:
                 formatted_section += Style.RESET_ALL
             final_message += formatted_section
     else:
         if ">" not in message and "»" not in message and ":" not in message:
-            final_message = f"{Style.BRIGHT}{Fore.LIGHTYELLOW_EX}{message}{Style.RESET_ALL}"
+            final_message = f"{Style.BRIGHT}{message}{Style.RESET_ALL}"
         else:
             try:
                 arrow_i = message.index(">")
@@ -71,7 +72,7 @@ def formatted(message):
                     arrow_i = message.index(":")
             user = message[0:arrow_i]
             arrow = message[arrow_i]
-            content = message[arrow_i+1]
+            content = message[arrow_i+1:]
             if user not in user_colors.keys():
                 user_colors[user] = random.choice(user_color_types)
 
@@ -82,10 +83,11 @@ def formatted(message):
 def chatlog():
     messages = []
     try:
-        with open(os.getenv("APPDATA") + "/.minecraft/logs/latest.log", "r") as f:
+        with codecs.open(os.getenv("APPDATA") + "/.minecraft/logs/latest.log", "r", encoding="unicode_escape") as f:
             log = f.readlines()
     except PermissionError:
         return chatlog()
+
     for line in log:
         if "[CHAT]" in line:
             message = line[line.index("C") + 6:len(line) - 1]
