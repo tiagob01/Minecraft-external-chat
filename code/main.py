@@ -2,6 +2,7 @@ import os
 import random
 from colorama import init, Fore, Style
 import codecs
+import webbrowser
 
 init()
 user_colors = {}
