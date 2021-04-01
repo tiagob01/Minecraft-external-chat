@@ -87,9 +87,13 @@ def chatlog():
     try:
         with codecs.open(os.getenv("APPDATA") + "/.minecraft/logs/latest.log", "r", encoding="unicode_escape") as f:
             log = f.readlines()
+            
     except PermissionError:
         return chatlog()
-
+    except FileNotFoundError:
+        webbrowser.open("http://www.minecraft.net")
+        raise FileNotFoundError("Install Minecraft to use")
+        
     for line in log:
         if "[CHAT]" in line:
             message = line[line.index("C") + 6:len(line) - 1]
